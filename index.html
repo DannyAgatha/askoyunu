@@ -1,25 +1,276 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>İyi ki Doğdun ❤️</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <title>Sana Bir Sürprizim Var!</title>
+    <style>
+        /* Koyu Mod Düzeltmeleri */
+        html {
+            color-scheme: light; 
+        }
+        body, html {
+            height: 100%; margin: 0; font-family: 'Arial', sans-serif;
+            display: grid; place-items: center; 
+        }
+
+        body {
+             background-color: #fdefee; /* Yedek renk */
+        }
+
+        #background-video {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            object-fit: cover;
+            z-index: -100; /* En arkaya gönder */
+        }
+        
+        /* ===== DÜZELTME: VİDEONUN ÜSTÜNDE KALMAYI GARANTİLE ===== */
+        .container, .final-message {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            
+            /* Bu iki kural, içeriğin videonun önünde kalmasını garantiler */
+            position: relative; 
+            z-index: 1;
+        }
+        /* ===== DÜZELTME SONU ===== */
+
+        #question {
+            font-size: 2.5em; color: #e91e63; margin-bottom: 30px;
+        }
+        .buttons {
+            display: flex; justify-content: center; align-items: center; gap: 20px;
+        }
+        button {
+            border: none; border-radius: 25px; padding: 15px 30px;
+            font-size: 1.2em; font-weight: bold; cursor: pointer;
+            color: white; transition: all 0.3s ease-in-out;
+        }
+        #yesButton { background-color: #4CAF50; }
+        #noButton { background-color: #f44336; }
+        #yesButton.fullscreen {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            font-size: 12vw; border-radius: 0; z-index: 100;
+        }
+        .final-message {
+            display: none; 
+            text-align: center; 
+            color: #e91e63;
+            animation: fadeIn 2s forwards; 
+        }
+        
+        .photo-gallery {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 15px; margin-top: 30px;
+            max-width: 585px; 
+            margin-left: auto; margin-right: auto;
+        }
+        
+        .photo-item {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            gap: 5px; 
+        }
+        
+        .photo-item img {
+            width: 180px; height: 180px;
+            object-fit: cover; border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .photo-item img:hover { transform: scale(1.05); }
+
+        .enlarge-button {
+            background-color: #e91e63;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 10px; 
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+        .enlarge-button:hover { opacity: 0.8; }
+
+        /* LIGHTBOX/MODAL STİLLERİ (Değişiklik yok) */
+        .lightbox-modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); 
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            display: block;
+            max-width: 90%; 
+            max-height: 80%; 
+            object-fit: contain; 
+            animation: zoomIn 0.3s ease;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .close-button:hover { color: #bbb; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.5); } to { transform: scale(1); } }
+        
+        @media (max-width: 600px) {
+            #question { font-size: 2em; }
+            button { padding: 12px 25px; font-size: 1em; }
+            
+            .photo-item img { 
+                width: 120px; 
+                height: 120px; 
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">İyi ki Doğdun Aşkım 🎂</h1>
-    
-    <div class="cake">
-      <div class="candles">
-        <!-- Mumlar JS ile eklenecek -->
-      </div>
-      <img src="assets/img/cake.png" alt="Doğum Günü Pastası" class="cake-img" />
+
+    <video id="background-video" autoplay muted loop playsinline>
+        <source src="video/arkaplan.mp4" type="video/mp4">
+        Tarayıcınız video etiketini desteklemiyor.
+    </video>
+
+
+    <div class="container" id="mainContainer">
+        <h1 id="question">Dünyanın en mutlu erkeği olmama izin verir misin? ❤️</h1>
+        <div class="buttons">
+            <button id="yesButton">EVET!</button>
+            <button id="noButton">Hayır</button>
+            </div>
     </div>
 
-    <button class="blow-btn" onclick="blowCandles()">Üfle 🎈</button>
-  </div>
+    <div id="finalMessage" class="final-message">
+        <h2 style="font-size: 3em; margin-bottom: 20px;">Biliyordum! Seni Seviyorum! 🥰</h2>
+        
+        <div class="photo-gallery" id="photoGallery">
+            </div>
+    </div>
 
-  <script src="main.js"></script>
+    <div id="lightboxModal" class="lightbox-modal">
+        <span class="close-button" id="closeButton">&times;</span>
+        <img class="lightbox-content" id="lightboxImage">
+    </div>
+
+    <audio id="backgroundMusic" src="muzik/sarki.mp3" preload="auto" loop></audio> 
+
+    <script>
+        // JavaScript kısmında hiçbir değişiklik yok
+        
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const question = document.getElementById('question');
+        const mainContainer = document.getElementById('mainContainer');
+        const finalMessage = document.getElementById('finalMessage');
+        const photoGallery = document.getElementById('photoGallery');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const closeButton = document.getElementById('closeButton');
+
+        let yesFontSize = 1.2, yesPaddingX = 30, yesPaddingY = 15;
+        let noFontSize = 1.2, noPaddingX = 30, noPaddingY = 15;
+        let noClickCount = 0;
+
+        const noMessages = [
+            "Emin misin?", "Tekrar düşün...", "Ama neden :(",
+            "Lütfeeen!", "Bak küçülüyorum!", "Son şansın!", "Yanlış buton!"
+        ];
+
+        const photos = [
+            "fotograflar/foto1.jpg", "fotograflar/foto2.jpg", "fotograflar/foto3.jpg",
+            "fotograflar/foto4.jpg", "fotograflar/foto5.jpg", "fotograflar/foto6.jpg"
+        ];
+        
+        function addPhotosToGallery() {
+            photos.forEach(photoSrc => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'photo-item';
+                const img = document.createElement('img');
+                img.src = photoSrc; 
+                img.alt = "Bizim anımız :)";
+                const enlargeBtn = document.createElement('button');
+                enlargeBtn.className = 'enlarge-button';
+                enlargeBtn.innerText = 'Büyüt 🔍';
+                enlargeBtn.addEventListener('click', () => {
+                    openLightbox(photoSrc);
+                });
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(enlargeBtn);
+                photoGallery.appendChild(itemDiv);
+            });
+        }
+        
+        function openLightbox(src) {
+            lightboxImage.src = src; 
+            lightboxModal.style.display = 'flex';
+        }
+        
+        function closeLightbox() {
+            lightboxModal.style.display = 'none';
+        }
+        
+        closeButton.addEventListener('click', closeLightbox);
+        
+        lightboxModal.addEventListener('click', (event) => {
+            if (event.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+        
+        yesButton.addEventListener('click', () => {
+            mainContainer.style.display = 'none';
+            finalMessage.style.display = 'block';
+            addPhotosToGallery(); 
+            backgroundMusic.play().catch(error => {
+                console.log("Müzik çalma hatası:", error);
+            });
+        });
+        
+        noButton.addEventListener('click', () => {
+            noClickCount++;
+            yesFontSize += 0.5;
+            yesPaddingX += 10;
+            yesPaddingY += 5;
+            yesButton.style.fontSize = yesFontSize + 'em';
+            yesButton.style.padding = `${yesPaddingY}px ${yesPaddingX}px`;
+            
+            noFontSize = Math.max(0.1, noFontSize - 0.1);
+            noPaddingX = Math.max(5, noPaddingX - 5);
+            noPaddingY = Math.max(2, noPaddingY - 3);
+            noButton.style.fontSize = noFontSize + 'em';
+            noButton.style.padding = `${noPaddingY}px ${noPaddingX}px`;
+            
+            noButton.innerText = noMessages[noClickCount % noMessages.length];
+            
+            if (noClickCount > 5) { 
+                noButton.style.display = 'none';
+                question.style.display = 'none';
+                yesButton.classList.add('fullscreen');
+                yesButton.innerText = 'TEK SEÇENEK BU!';
+            }
+        });
+    </script>
 </body>
 </html>
