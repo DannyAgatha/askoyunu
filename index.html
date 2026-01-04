@@ -141,6 +141,14 @@
       width: 90%;
       position: relative;
     }
+    /* 👇 BURAYA EKLE */
+  #modal-photo {
+  width: 100%;
+  max-height: 60vh; /* mobil için altın oran */
+  object-fit: contain;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  }
     .modal-close {
       position: absolute;
       top: 1rem;
@@ -265,7 +273,7 @@
       <h2 id="modal-title"></h2>
       <p id="modal-description"></p>
       <!-- Photo section using background-image -->
-      <div id="modal-photo"></div>
+      <img id="modal-photo" />
     </div>
   </div>
   
@@ -385,7 +393,7 @@
         const eventData = eventsData[event.dataset.event];
         modalTitle.textContent = eventData.title;
         modalDescription.textContent = eventData.description;
-        modalPhoto.style.backgroundImage = 'url(' + eventData.photo + ')';
+        modalPhoto.src = eventData.photo;
         modal.style.display = 'flex';
       });
     });
