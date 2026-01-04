@@ -1,276 +1,474 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light">
-    <title>Sana Bir Sürprizim Var!</title>
-    <style>
-        /* Koyu Mod Düzeltmeleri */
-        html {
-            color-scheme: light; 
-        }
-        body, html {
-            height: 100%; margin: 0; font-family: 'Arial', sans-serif;
-            display: grid; place-items: center; 
-        }
-
-        body {
-             background-color: #fdefee; /* Yedek renk */
-        }
-
-        #background-video {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            object-fit: cover;
-            z-index: -100; /* En arkaya gönder */
-        }
-        
-        /* ===== DÜZELTME: VİDEONUN ÜSTÜNDE KALMAYI GARANTİLE ===== */
-        .container, .final-message {
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            
-            /* Bu iki kural, içeriğin videonun önünde kalmasını garantiler */
-            position: relative; 
-            z-index: 1;
-        }
-        /* ===== DÜZELTME SONU ===== */
-
-        #question {
-            font-size: 2.5em; color: #e91e63; margin-bottom: 30px;
-        }
-        .buttons {
-            display: flex; justify-content: center; align-items: center; gap: 20px;
-        }
-        button {
-            border: none; border-radius: 25px; padding: 15px 30px;
-            font-size: 1.2em; font-weight: bold; cursor: pointer;
-            color: white; transition: all 0.3s ease-in-out;
-        }
-        #yesButton { background-color: #4CAF50; }
-        #noButton { background-color: #f44336; }
-        #yesButton.fullscreen {
-            position: fixed; top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            font-size: 12vw; border-radius: 0; z-index: 100;
-        }
-        .final-message {
-            display: none; 
-            text-align: center; 
-            color: #e91e63;
-            animation: fadeIn 2s forwards; 
-        }
-        
-        .photo-gallery {
-            display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 15px; margin-top: 30px;
-            max-width: 585px; 
-            margin-left: auto; margin-right: auto;
-        }
-        
-        .photo-item {
-            display: flex;
-            flex-direction: column; 
-            align-items: center; 
-            gap: 5px; 
-        }
-        
-        .photo-item img {
-            width: 180px; height: 180px;
-            object-fit: cover; border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-        .photo-item img:hover { transform: scale(1.05); }
-
-        .enlarge-button {
-            background-color: #e91e63;
-            border: none;
-            border-radius: 10px;
-            padding: 5px 10px; 
-            font-size: 0.8em;
-            font-weight: bold;
-            cursor: pointer;
-            color: white;
-            transition: all 0.3s ease-in-out;
-        }
-        .enlarge-button:hover { opacity: 0.8; }
-
-        /* LIGHTBOX/MODAL STİLLERİ (Değişiklik yok) */
-        .lightbox-modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); 
-            justify-content: center;
-            align-items: center;
-        }
-        .lightbox-content {
-            display: block;
-            max-width: 90%; 
-            max-height: 80%; 
-            object-fit: contain; 
-            animation: zoomIn 0.3s ease;
-        }
-        
-        .close-button {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-        .close-button:hover { color: #bbb; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes zoomIn { from { transform: scale(0.5); } to { transform: scale(1); } }
-        
-        @media (max-width: 600px) {
-            #question { font-size: 2em; }
-            button { padding: 12px 25px; font-size: 1em; }
-            
-            .photo-item img { 
-                width: 120px; 
-                height: 120px; 
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Güzel Sevgilime</title>
+  <style>
+    :root {
+      --pink-500: #ec4899;
+      --pink-300: #f9a8d4;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fce7f3, #fdf2f8);
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(252, 231, 243, 0.8);
+    }
+    h1 {
+      color: var(--pink-500);
+      font-size: 2.5rem;
+    }
+    /* Counter styling */
+    #counter {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      color: var(--pink-500);
+    }
+    /* Music toggle button styling */
+    #music-toggle {
+      margin-top: 1rem;
+      font-size: 1rem;
+      background: var(--pink-500);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* Timeline Container & Rows */
+    .timeline-container {
+      position: relative;
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .timeline-row {
+      position: relative;
+      margin-bottom: 8rem; /* Increased spacing between rows */
+    }
+    .timeline-row:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--pink-300);
+      transform: translateY(-50%);
+    }
+    .timeline-events {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      padding: 1rem 0;
+    }
+    /* Reverse the order for alternate (snake) effect */
+    .timeline-row.reverse .timeline-events {
+      flex-direction: row-reverse;
+    }
+    .timeline-event {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--pink-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    .timeline-event:hover {
+      transform: scale(1.1);
+      border-color: var(--pink-500);
+    }
+    .timeline-event.active {
+      background: #fce7f3;
+      border-color: var(--pink-500);
+    }
+    .timeline-event span {
+      color: var(--pink-500);
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0 0.3rem;
+    }
+    /* Character styling – its position is set via JS */
+    #character {
+      width: 192px;
+      height: 192px;
+      background: url('Başlıksız-1.png') no-repeat center center;
+      background-size: cover;
+      position: absolute;
+      transition: all 0.5s ease;
+      z-index: 1;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+    /* Modal Photo styled as a background image */
+    #modal-photo {
+      width: 100%;
+      height: 300px; /* Adjust as needed */
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* Falling hearts animation */
+    .heart {
+      position: fixed;
+      top: 0; /* Hearts start at the top */
+      pointer-events: none;
+      animation: fall linear forwards;
+      color: var(--pink-500);
+      font-size: 1.5rem;
+    }
+    @keyframes fall {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+    /* Video container styling */
+    .video-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    .video-container video {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* Hide the default audio controls if needed */
+    /* #background-music { display: none; } */
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Sevgililer Günümüz Kutlu Olsun Aşkımmm</h1>
+    <div id="counter"></div>
+    <!-- Music Toggle Button -->
+    <button id="music-toggle">Yalın bi sus amk</button>
+  </header>
 
-    <video id="background-video" autoplay muted loop playsinline>
-        <source src="video/arkaplan.mp4" type="video/mp4">
-        Tarayıcınız video etiketini desteklemiyor.
-    </video>
-
-
-    <div class="container" id="mainContainer">
-        <h1 id="question">Dünyanın en mutlu erkeği olmama izin verir misin? ❤️</h1>
-        <div class="buttons">
-            <button id="yesButton">EVET!</button>
-            <button id="noButton">Hayır</button>
-            </div>
+  <div class="timeline-container">
+    <!-- Row 1: 4 events -->
+    <div class="timeline-row">
+      <div class="timeline-line"></div>
+      <div class="timeline-events">
+        <div class="timeline-event" data-event="meet">
+          <span>Tanışma</span>
+        </div>
+        <div class="timeline-event" data-event="date">
+          <span>İlk Buluşma</span>
+        </div>
+        <div class="timeline-event" data-event="trip">
+          <span>Gou</span>
+        </div>
+        <div class="timeline-event" data-event="moment">
+          <span>Sahil</span>
+        </div>
+      </div>
     </div>
-
-    <div id="finalMessage" class="final-message">
-        <h2 style="font-size: 3em; margin-bottom: 20px;">Biliyordum! Seni Seviyorum! 🥰</h2>
-        
-        <div class="photo-gallery" id="photoGallery">
-            </div>
+    <!-- Row 2: 4 events (reversed for snake effect) -->
+    <div class="timeline-row reverse">
+      <div class="timeline-line"></div>
+      <div class="timeline-events">
+        <div class="timeline-event" data-event="dinner">
+          <span>İlk Havuçlu Kek</span>
+        </div>
+        <div class="timeline-event" data-event="trip2">
+          <span>İlk Bilardo</span>
+        </div>
+        <div class="timeline-event" data-event="hug">
+          <span>Love Actually</span>
+        </div>
+        <div class="timeline-event" data-event="kiss">
+          <span>Sevgili olma</span>
+        </div>
+      </div>
     </div>
-
-    <div id="lightboxModal" class="lightbox-modal">
-        <span class="close-button" id="closeButton">&times;</span>
-        <img class="lightbox-content" id="lightboxImage">
+    <!-- Row 3: 2 events, centered -->
+    <div class="timeline-row">
+      <div class="timeline-line"></div>
+      <div class="timeline-events" style="justify-content: space-around;">
+        <div class="timeline-event" data-event="home">
+          <span>Bakteri</span>
+        </div>
+        <div class="timeline-event" data-event="anniversary">
+          <span>Özel Teşekkür</span>
+        </div>
+      </div>
     </div>
+    <div id="character"></div>
+  </div>
 
-    <audio id="backgroundMusic" src="muzik/sarki.mp3" preload="auto" loop></audio> 
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <h2 id="modal-title"></h2>
+      <p id="modal-description"></p>
+      <!-- Photo section using background-image -->
+      <div id="modal-photo"></div>
+    </div>
+  </div>
+  
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/qUOrUYcoqlg" frameborder="0" allowfullscreen></iframe>
+</div>
+  
+  <!-- Background Music Audio Element -->
+  <audio id="background-music" loop autoplay>
+    <source src="https://arcticice47.github.io/sevgililergunuuu/yalınnes.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
 
-    <script>
-        // JavaScript kısmında hiçbir değişiklik yok
-        
-        const yesButton = document.getElementById('yesButton');
-        const noButton = document.getElementById('noButton');
-        const question = document.getElementById('question');
-        const mainContainer = document.getElementById('mainContainer');
-        const finalMessage = document.getElementById('finalMessage');
-        const photoGallery = document.getElementById('photoGallery');
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const lightboxModal = document.getElementById('lightboxModal');
-        const lightboxImage = document.getElementById('lightboxImage');
-        const closeButton = document.getElementById('closeButton');
+  
 
-        let yesFontSize = 1.2, yesPaddingX = 30, yesPaddingY = 15;
-        let noFontSize = 1.2, noPaddingX = 30, noPaddingY = 15;
-        let noClickCount = 0;
+  <script>
+    // Music Toggle Functionality
+    const bgMusic = document.getElementById("background-music");
+    const musicToggle = document.getElementById("music-toggle");
 
-        const noMessages = [
-            "Emin misin?", "Tekrar düşün...", "Ama neden :(",
-            "Lütfeeen!", "Bak küçülüyorum!", "Son şansın!", "Yanlış buton!"
-        ];
+    musicToggle.addEventListener("click", () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicToggle.textContent = "Yalın bi sus amk";
+      } else {
+        bgMusic.pause();
+        musicToggle.textContent = "tamam amk devam et";
+      }
+    });
 
-        const photos = [
-            "fotograflar/foto1.jpg", "fotograflar/foto2.jpg", "fotograflar/foto3.jpg",
-            "fotograflar/foto4.jpg", "fotograflar/foto5.jpg", "fotograflar/foto6.jpg"
-        ];
-        
-        function addPhotosToGallery() {
-            photos.forEach(photoSrc => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'photo-item';
-                const img = document.createElement('img');
-                img.src = photoSrc; 
-                img.alt = "Bizim anımız :)";
-                const enlargeBtn = document.createElement('button');
-                enlargeBtn.className = 'enlarge-button';
-                enlargeBtn.innerText = 'Büyüt 🔍';
-                enlargeBtn.addEventListener('click', () => {
-                    openLightbox(photoSrc);
-                });
-                itemDiv.appendChild(img);
-                itemDiv.appendChild(enlargeBtn);
-                photoGallery.appendChild(itemDiv);
-            });
-        }
-        
-        function openLightbox(src) {
-            lightboxImage.src = src; 
-            lightboxModal.style.display = 'flex';
-        }
-        
-        function closeLightbox() {
-            lightboxModal.style.display = 'none';
-        }
-        
-        closeButton.addEventListener('click', closeLightbox);
-        
-        lightboxModal.addEventListener('click', (event) => {
-            if (event.target === lightboxModal) {
-                closeLightbox();
-            }
-        });
-        
-        yesButton.addEventListener('click', () => {
-            mainContainer.style.display = 'none';
-            finalMessage.style.display = 'block';
-            addPhotosToGallery(); 
-            backgroundMusic.play().catch(error => {
-                console.log("Müzik çalma hatası:", error);
-            });
-        });
-        
-        noButton.addEventListener('click', () => {
-            noClickCount++;
-            yesFontSize += 0.5;
-            yesPaddingX += 10;
-            yesPaddingY += 5;
-            yesButton.style.fontSize = yesFontSize + 'em';
-            yesButton.style.padding = `${yesPaddingY}px ${yesPaddingX}px`;
-            
-            noFontSize = Math.max(0.1, noFontSize - 0.1);
-            noPaddingX = Math.max(5, noPaddingX - 5);
-            noPaddingY = Math.max(2, noPaddingY - 3);
-            noButton.style.fontSize = noFontSize + 'em';
-            noButton.style.padding = `${noPaddingY}px ${noPaddingX}px`;
-            
-            noButton.innerText = noMessages[noClickCount % noMessages.length];
-            
-            if (noClickCount > 5) { 
-                noButton.style.display = 'none';
-                question.style.display = 'none';
-                yesButton.classList.add('fullscreen');
-                yesButton.innerText = 'TEK SEÇENEK BU!';
-            }
-        });
-    </script>
+    // Updated eventsData using image file names (update paths as needed)
+    const eventsData = {
+      meet: {
+        title: 'Tanışma',
+        description: 'İlk görüşte aşkı ilk defa deneyimlediğim için gerçek olup olmadığını anlamak için dışarı çıkıp tekrar girmiştim.',
+        photo: 'tanisma.jpg'
+      },
+      date: {
+        title: 'İlk Buluşma',
+        description: 'İyiki arabayla Starbucksa giderken "gelir misin?" diye sormuştun. Çok casual ama bence özel ve güzel bir buluşma olmuştu. Yürürken acayip heyecanlıydım; evden yokuşu zor çıkmıştım valla.',
+        photo: 'ilkbulusma.jpg'
+      },
+      trip: {
+        title: 'Gou',
+        description: 'Muhtemelen lavuk, yer-yön yetisi çok zayıf bir sihirbaz diye düşünmüştündür. Kolum ağrıyo diyip "kol atma" numarası...',
+        photo: 'gou.jpeg'
+      },
+      moment: {
+        title: 'Sahil',
+        description: 'Senin en sevdiğin date’lerden biri olduğunu biliyorum. Benim için de öyleydi. 29 Ekim olması, sahilde burger yeme işi, ikimiz de birbirimize iyice ısındı; hava da hafif üşüttü. Cidden çok güzeldi; foto da tam oturduğumuz yer.',
+        photo: 'sahil.jpg'
+      },
+      dinner: {
+        title: 'İlk Havuçlu Kek',
+        description: 'Bunu anlatmama gerek yok; aklımız çıkmıştı ilk yediğimizde. Bugün bilardo + havuçlu kek yapmıştık, efsanenin başlangıcıydı. Bi de bugün aşırı gülmüştük. Very special.',
+        photo: 'ilkhauvclukek.jpg'
+      },
+      trip2: {
+        title: 'İlk Bilardo',
+        description: 'Çok önemli bir rekabetin başlangıcı... İlk topa vurduğunda "aha sıçtık, ilk defa oynamıyor galiba" demiştim. Seride öne geçtiğin için biraz canım sıkkın ama çok keyif aldığımı değiştirmiyor.',
+        photo: 'ilkbilardo.jpg'
+      },
+      hug: {
+        title: 'Love Actually',
+        description: 'Bu günün bu kadar hoşuma gittiğini biliyor musun? Zar zor gitmiştik, yağmur vardı, eve zor dönmüştük falan; ama yediğimiz pizza, izlediğimiz film... Genel olarak havası çok hoşuma gitmişti. Bilerek bu fotoğrafı koydum nereye bakıyon amk, sinek mi gördün?',
+        photo: 'loveactually.jpg'
+      },
+      kiss: {
+        title: 'Sevgili Olma',
+        description: 'Önceki gece Boop’ta, sonrasında Snap’ten yazdıklarından tahmin ediyordum ama ertesi gün olacağını hiç beklemiyordum. Çıkma teklifi de etmiştim, very formal.',
+        photo: 'sevgiliolma.jpg'
+      },
+      home: {
+        title: 'Bakteri',
+        description: 'Benim en sevdiğim günlerimizden biri herhalde. Aşırı seviyom bu günü. Eve dönerken bomboş sokakta griddy yapıyordum, zıplıyordum falan; sürekli gülüyordum. Çok seviyom bu günü.',
+        photo: 'bakteri.jpg'
+      },
+      anniversary: {
+        title: 'Özel Teşekkür',
+        description: 'Bu arkadaşı unutamazdım herhalde. Üstümüzde büyük emeği var; sevgilerimi ve saygılarımı gönderiyorum kendisine.',
+        photo: 'skoda.jpg'
+      }
+    };
+
+    const timelineContainer = document.querySelector('.timeline-container');
+    const timelineEvents = document.querySelectorAll('.timeline-event');
+    const character = document.getElementById('character');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalPhoto = document.getElementById('modal-photo');
+    const modalClose = document.querySelector('.modal-close');
+
+    timelineEvents.forEach(event => {
+      event.addEventListener('click', () => {
+        // Remove active state from all events
+        timelineEvents.forEach(e => e.classList.remove('active'));
+        event.classList.add('active');
+
+        // Calculate the event's position relative to the timeline container
+        const eventRect = event.getBoundingClientRect();
+        const containerRect = timelineContainer.getBoundingClientRect();
+        const leftPos =
+          eventRect.left - containerRect.left + eventRect.width / 2 - character.offsetWidth / 2;
+        // Use -45 as the vertical offset (sweet spot)
+        const topPos = eventRect.top - containerRect.top + eventRect.height - 45;
+
+        character.style.left = leftPos + 'px';
+        character.style.top = topPos + 'px';
+
+        // Show modal with event details and photo
+        const eventData = eventsData[event.dataset.event];
+        modalTitle.textContent = eventData.title;
+        modalDescription.textContent = eventData.description;
+        modalPhoto.style.backgroundImage = 'url(' + eventData.photo + ')';
+        modal.style.display = 'flex';
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Falling hearts animation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '0px';
+      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(heart);
+      heart.addEventListener('animationend', () => {
+        heart.remove();
+      });
+    }
+    setInterval(createHeart, 500);
+
+    // Position character initially a little left of the first event
+    window.addEventListener('load', () => {
+      const firstEvent = document.querySelector('.timeline-event');
+      if (firstEvent) {
+        const eventRect = firstEvent.getBoundingClientRect();
+        const containerRect = timelineContainer.getBoundingClientRect();
+        // Position the character 20px to the left of the center of the first event
+        const leftPos = eventRect.left - containerRect.left + eventRect.width / 2 - character.offsetWidth / 2 - 20;
+        const topPos = eventRect.top - containerRect.top + eventRect.height - 45;
+        character.style.left = leftPos + 'px';
+        character.style.top = topPos + 'px';
+      }
+    });
+
+    // COUNTER FUNCTIONALITY:
+    // Set the start date to November 3rd. (Adjust the year as needed.)
+    const startDate = new Date("2024-11-03T00:00:00");
+
+    function updateCounter() {
+      const now = new Date();
+      
+      // Calculate total difference in days
+      const diffMs = now - startDate;
+      const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      
+      // Calculate years, months, and days using date arithmetic
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+      
+      if (days < 0) {
+        months--;
+        // Get days in previous month:
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      
+      // Convert leftover days into weeks and days
+      const weeks = Math.floor(days / 7);
+      const remainderDays = days % 7;
+      
+      document.getElementById("counter").textContent =
+        " 'Dan beri çok mutluyum: " +
+        years + " years, " +
+        months + " months, " +
+        weeks + " weeks, " +
+        remainderDays + " days.";
+    }
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var audio = document.getElementById("background-music");
+    audio.play().catch(error => {
+        console.log("Autoplay engellendi, kullanıcı etkileşimi bekleniyor.", error);
+    });
+});
+</script>
 </body>
 </html>
